@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{D3A98AA7-D295-440A-8F2C-F300F0FBC05F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetLine.Web", "NetLine.Web\NetLine.Web.csproj", "{200C89B4-1DE8-4768-8566-CF1357811BA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetLine.Domain", "NetLine.Domain\NetLine.Domain.csproj", "{C72F39C0-2691-4411-B0CB-7984058B9C3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetLine.Domain", "NetLine.Domain\NetLine.Domain.csproj", "{C72F39C0-2691-4411-B0CB-7984058B9C3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetLine.Application", "NetLine.Application\NetLine.Application.csproj", "{3324DCBA-2837-43F6-9A2B-1921961D005B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetLine.Application", "NetLine.Application\NetLine.Application.csproj", "{3324DCBA-2837-43F6-9A2B-1921961D005B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetLine.Infrastructure", "NetLine.Infrastructure\NetLine.Infrastructure.csproj", "{26A16E8B-9769-4855-BC9C-8119F59D684A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetLine.Infrastructure", "NetLine.Infrastructure\NetLine.Infrastructure.csproj", "{26A16E8B-9769-4855-BC9C-8119F59D684A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetLine.Web", "NetLine.Web\NetLine.Web.csproj", "{318298A1-7B32-4A92-A113-6676EC0D7F73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{200C89B4-1DE8-4768-8566-CF1357811BA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{200C89B4-1DE8-4768-8566-CF1357811BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{200C89B4-1DE8-4768-8566-CF1357811BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{200C89B4-1DE8-4768-8566-CF1357811BA8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C72F39C0-2691-4411-B0CB-7984058B9C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C72F39C0-2691-4411-B0CB-7984058B9C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72F39C0-2691-4411-B0CB-7984058B9C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,15 +31,19 @@ Global
 		{26A16E8B-9769-4855-BC9C-8119F59D684A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26A16E8B-9769-4855-BC9C-8119F59D684A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26A16E8B-9769-4855-BC9C-8119F59D684A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{318298A1-7B32-4A92-A113-6676EC0D7F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{318298A1-7B32-4A92-A113-6676EC0D7F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{318298A1-7B32-4A92-A113-6676EC0D7F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{318298A1-7B32-4A92-A113-6676EC0D7F73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{200C89B4-1DE8-4768-8566-CF1357811BA8} = {D3A98AA7-D295-440A-8F2C-F300F0FBC05F}
 		{C72F39C0-2691-4411-B0CB-7984058B9C3C} = {D3A98AA7-D295-440A-8F2C-F300F0FBC05F}
 		{3324DCBA-2837-43F6-9A2B-1921961D005B} = {D3A98AA7-D295-440A-8F2C-F300F0FBC05F}
 		{26A16E8B-9769-4855-BC9C-8119F59D684A} = {D3A98AA7-D295-440A-8F2C-F300F0FBC05F}
+		{318298A1-7B32-4A92-A113-6676EC0D7F73} = {D3A98AA7-D295-440A-8F2C-F300F0FBC05F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C18A0994-4110-41CA-88A4-FA8BE6708DDD}
