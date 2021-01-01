@@ -20,8 +20,4 @@
     <ProjectReference Include="..\NetLine.Application\NetLine.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

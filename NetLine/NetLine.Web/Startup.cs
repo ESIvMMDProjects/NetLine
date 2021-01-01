@@ -13,6 +13,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Eshop.Infrastructure.Context;
+using NetLine.Domain.Services.InterFaces;
+using NetLine.Domain.Services.UnitOfWork;
+using NetLine.Infrastructure.Services.Repository.ProductAndCategory;
+using NetLine.Infrastructure.Services.UnitOfWork;
 
 namespace NetLine.Web
 {
@@ -30,6 +34,8 @@ namespace NetLine.Web
         {
             services.AddInfrastructure(Configuration);
             services.AddControllersWithViews();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IProductRe, ProductRe>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
