@@ -5,6 +5,6 @@
     <img src="/images/@(Model.Id).jpg" height="160" width="160" class="card-img-top img-thumbnail" />
     <div class="card-body">
         <h5 class="card-title">@Model.Name</h5>
-        <a asp-action="Detail" asp-controller="Home" asp-route-id="@Model.Id">جزیات محصول</a>
+        <a asp-action="DetailOfProduct" asp-controller="Product" asp-route-id="@Model.Id">جزیات محصول</a>
     </div>
 </div>

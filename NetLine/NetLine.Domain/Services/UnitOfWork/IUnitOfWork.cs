@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NetLine.Domain.Services.InterFaces;
+using NetLine.Domain.Services.InterFaces.User.Cart;
 
 namespace NetLine.Domain.Services.UnitOfWork
 {
    public interface IUnitOfWork : IDisposable
    {
-       public IProductRe ProductRe { get; }
-       Task SaveChangesAsync();
+        IProductRe ProductRe { get; }
+        ICartRe CartRe { get; }
+        Task SaveChangesAsync();
    }
 
 

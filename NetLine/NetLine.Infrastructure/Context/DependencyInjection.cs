@@ -3,9 +3,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetLine.Domain.Services.InterFaces;
+using NetLine.Domain.Services.InterFaces.User.Cart;
+using NetLine.Domain.Services.UnitOfWork;
 using NetLine.Infrastructure.Context;
+using NetLine.Infrastructure.Services.Repository.ProductAndCategory;
+using NetLine.Infrastructure.Services.Repository.User.Cart;
+using NetLine.Infrastructure.Services.UnitOfWork;
 
-namespace Eshop.Infrastructure.Context
+namespace NetLine.Infrastructure.Context
 {
     public static class DependencyInjection
     {
@@ -14,7 +20,7 @@ namespace Eshop.Infrastructure.Context
             #region Db Context
 
             services.AddDbContext<NetLineDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContext")));
 
 
             #endregion
@@ -33,19 +39,9 @@ namespace Eshop.Infrastructure.Context
 
             #region IoC
 
-            /*services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            services.AddScoped<IProductRepository, ProductRepository>();
-
-            services.AddScoped<IOrderRepository, OrderRepository>();
-
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-
-            services.AddScoped<IAdminRepository, AdminRepository>();
-
-            services.AddScoped<IManageAccountRepository, ManageAccountRepository>();*/
+            services.AddScoped<IProductRe, ProductRe>();
+            services.AddScoped<ICartRe, CartRe>();
 
             #endregion
 

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using NetLine.Domain.Models.ProductAndCategory;
 
-namespace NetLine.Domain.Model.User.Order
+namespace NetLine.Domain.Models.User.Order
 {
     public class OrderDetail
     {

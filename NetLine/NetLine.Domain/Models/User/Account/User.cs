@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NetLine.Domain.Model.User.Order;
 
 namespace NetLine.Domain.Models.User.Account
 {
     public class User
     {
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         [Required]
         [Display(Name = "نام کاربری")]
         public string Username { get; set; }
@@ -24,5 +25,7 @@ namespace NetLine.Domain.Models.User.Account
         public string Address { get; set; }
         public bool IsAdmin { get; set; }
         public bool RememberMe { get; set; }
+
+        public List<Order> Orders { get; set; }
     }
 }

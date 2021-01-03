@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NetLine.Domain.Services.InterFaces;
+using NetLine.Domain.Services.InterFaces.User.Cart;
 using NetLine.Domain.Services.UnitOfWork;
 using NetLine.Infrastructure.Context;
 using NetLine.Infrastructure.Services.Repository.ProductAndCategory;
@@ -25,6 +26,7 @@ namespace NetLine.Infrastructure.Services.UnitOfWork
         }
 
         public IProductRe ProductRe { get; }
+        public ICartRe CartRe { get; }
 
         public async Task SaveChangesAsync()
         {

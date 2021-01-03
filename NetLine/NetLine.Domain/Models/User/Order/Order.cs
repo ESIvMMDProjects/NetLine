@@ -6,7 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetLine.Domain.Model.User.Order
+
+namespace NetLine.Domain.Models.User.Order
 {
     public class Order
     {
@@ -19,7 +20,8 @@ namespace NetLine.Domain.Model.User.Order
         public bool IsFinally { get; set; }
 
 
-
+        [ForeignKey("UserId")]
+        public Models.User.Account.User Users { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
     }
 }
