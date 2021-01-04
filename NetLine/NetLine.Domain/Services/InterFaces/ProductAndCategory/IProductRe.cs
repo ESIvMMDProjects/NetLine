@@ -13,5 +13,6 @@ namespace NetLine.Domain.Services.InterFaces
         
         Task<IEnumerable<Product>> GetAllProducts();
         Task<DetailViewModel> GetProductDetailById(int ProductId);
+        Task AddProduct(AddEditProdcutViewModel add);
     }
 }
