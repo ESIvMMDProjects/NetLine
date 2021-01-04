@@ -1,4 +1,4 @@
-﻿using NetLine.Domain.Model.User.Order;
+﻿using NetLine.Domain.Models.User.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;

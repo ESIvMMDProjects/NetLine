@@ -11,37 +11,55 @@ using NetLine.Infrastructure.Context;
 
 namespace NetLine.Infrastructure.Services.Repository.User.Cart
 {
-  public  class CartRe : ICartRe
-  {
-      private readonly NetLineDbContext _context;
+    public class CartRe : ICartRe
+    {
+        private readonly NetLineDbContext _context;
 
-      public CartRe(NetLineDbContext context)
-      {
-          _context = context;   
-      }
-
-
-      public void AddToCart(int ItemId)
+        public CartRe(NetLineDbContext context)
         {
-            var product = _context.Products.
-                Include(p => p.Item).
-                SingleOrDefault(p => p.ItemId == ItemId);
-            if (product != null)
+            _context = context;
+        }
+
+            public async Task AddToCart(int itemId, string userId)
             {
-                int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
-                var order = _context.Orders.FirstOrDefault(o => o.UserId == userId && !o.IsFinally);
-                if (order != null)
+                var product = await _context.Products.
+                    Include(p => p.Item).
+                    SingleOrDefaultAsync(p => p.ItemId == itemId);
+                if (product != null)
                 {
-                    var orderDetail =
-                        _context.OrderDetails.FirstOrDefault(d =>
-                            d.OrderId == order.OrderId && d.ProductId == product.Id);
-                    if (orderDetail != null)
+                    var order = await _context.Orders.FirstOrDefaultAsync(o => o.UserId == userId && !o.IsFinally);
+                    if (order != null)
                     {
+                        var orderDetail = await _context.OrderDetails
+                            .FirstOrDefaultAsync(d => d.OrderId == order.OrderId && d.ProductId == product.Id);
+
+                        if (orderDetail != null)
+                        {
                         orderDetail.Count += 1;
+                        }
+                        else
+                        {
+                            await _context.OrderDetails.AddAsync(new OrderDetail()
+                            {
+                                OrderId = order.OrderId,
+                                ProductId = product.Id,
+                                Price = product.Item.Price,
+                                Count = 1
+                            });
+                        }
                     }
+
                     else
                     {
-                        _context.OrderDetails.Add(new OrderDetail()
+                        order = new Order()
+                        {
+                            IsFinally = false,
+                            CreateDate = DateTime.Now,
+                            UserId = userId
+                        };
+                        await _context.Orders.AddAsync(order);
+                        await _context.SaveChangesAsync();
+                        await _context.OrderDetails.AddAsync(new OrderDetail()
                         {
                             OrderId = order.OrderId,
                             ProductId = product.Id,
@@ -49,29 +67,10 @@ namespace NetLine.Infrastructure.Services.Repository.User.Cart
                             Count = 1
                         });
                     }
-                }
-                else
-                {
-                    order = new Order()
-                    {
-                        IsFinally = false,
-                        CreateDate = DateTime.Now,
-                        UserId = userId
-                    };
-                    _context.Orders.Add(order);
-                    _context.SaveChanges();
-                    _context.OrderDetails.Add(new OrderDetail()
-                    {
-                        OrderId = order.OrderId,
-                        ProductId = product.Id,
-                        Price = product.Item.Price,
-                        Count = 1
-                    });
-                }
 
-                _context.SaveChanges();
+                    await _context.SaveChangesAsync();
+                }
             }
-        }
+    }
     }
 
-}
