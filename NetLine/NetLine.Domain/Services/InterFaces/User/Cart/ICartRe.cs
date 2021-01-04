@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NetLine.Domain.Services.InterFaces.User.Cart
 {
     public interface ICartRe
-    { 
-        void AddToCart(int ItemId);
+    {
+        Task AddToCart(int itemId, string userId);
     }
 }
