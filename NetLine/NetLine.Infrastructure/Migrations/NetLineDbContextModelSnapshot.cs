@@ -19,6 +19,57 @@ namespace NetLine.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("NetLine.Domain.Model.User.Order.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsFinally")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("NetLine.Domain.Model.User.Order.OrderDetail", b =>
+                {
+                    b.Property<int>("DetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DetailId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("NetLine.Domain.Models.ProductAndCategory.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -198,54 +249,67 @@ namespace NetLine.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("NetLine.Domain.Models.User.Order.Order", b =>
+            modelBuilder.Entity("NetLine.Domain.Models.User.Account.User", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsFinally")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserId")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrderId");
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
 
-                    b.ToTable("Orders");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RememberMe")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("NetLine.Domain.Models.User.Order.OrderDetail", b =>
+            modelBuilder.Entity("NetLine.Domain.Model.User.Order.Order", b =>
                 {
-                    b.Property<int>("DetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.HasOne("NetLine.Domain.Models.User.Account.User", "Users")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
+                    b.Navigation("Users");
+                });
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+            modelBuilder.Entity("NetLine.Domain.Model.User.Order.OrderDetail", b =>
+                {
+                    b.HasOne("NetLine.Domain.Model.User.Order.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.HasOne("NetLine.Domain.Models.ProductAndCategory.Product", "Product")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Navigation("Order");
 
-                    b.HasKey("DetailId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderDetails");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("NetLine.Domain.Models.ProductAndCategory.Product", b =>
@@ -278,23 +342,9 @@ namespace NetLine.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("NetLine.Domain.Models.User.Order.OrderDetail", b =>
+            modelBuilder.Entity("NetLine.Domain.Model.User.Order.Order", b =>
                 {
-                    b.HasOne("NetLine.Domain.Models.User.Order.Order", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NetLine.Domain.Models.ProductAndCategory.Product", "Product")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("NetLine.Domain.Models.ProductAndCategory.Category", b =>
@@ -314,9 +364,9 @@ namespace NetLine.Infrastructure.Migrations
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("NetLine.Domain.Models.User.Order.Order", b =>
+            modelBuilder.Entity("NetLine.Domain.Models.User.Account.User", b =>
                 {
-                    b.Navigation("OrderDetails");
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

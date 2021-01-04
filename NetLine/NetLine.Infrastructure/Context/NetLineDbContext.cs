@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NetLine.Domain.Models.ProductAndCategory;
+
+using NetLine.Domain.Models.User.Account;
 using NetLine.Domain.Models.User.Order;
 
 namespace NetLine.Infrastructure.Context
@@ -22,7 +24,7 @@ namespace NetLine.Infrastructure.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-
+        public DbSet<User> Users { get; set; }
         public DbSet<ProductToCategory> ProductToCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
