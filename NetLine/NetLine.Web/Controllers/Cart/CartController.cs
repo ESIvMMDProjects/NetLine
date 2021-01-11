@@ -21,6 +21,12 @@ namespace NetLine.Web.Controllers.Cart
           await  _unitOfWork.CartRe.AddToCart(itemId, userId);
           return RedirectToAction("index", "Home");
         }
+
+        public async Task<IActionResult> RemoveFromCart(int detailId)
+        {
+            await _unitOfWork.CartRe.DeleteItemInCart(detailId);
+            return RedirectToAction("index", "Home");
+        }
     }
     }
 

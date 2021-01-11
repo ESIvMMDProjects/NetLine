@@ -71,6 +71,13 @@ namespace NetLine.Infrastructure.Services.Repository.User.Cart
                     await _context.SaveChangesAsync();
                 }
             }
+
+            public async Task DeleteItemInCart(int detailId)
+            {
+            var orderDetail =await _context.OrderDetails.FindAsync(detailId);
+            _context.Remove(orderDetail);
+          await  _context.SaveChangesAsync();
+            }
     }
     }
 

@@ -38,5 +38,6 @@ namespace NetLine.Web.Controllers.ProductAndCategory
             }
             return View(ShowDetailById);
         }
+
     }
 }

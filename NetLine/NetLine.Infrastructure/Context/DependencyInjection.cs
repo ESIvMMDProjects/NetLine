@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetLine.Domain.Services.InterFaces;
+using NetLine.Domain.Services.InterFaces.ProductAndCategory;
 using NetLine.Domain.Services.InterFaces.User.Cart;
 using NetLine.Domain.Services.UnitOfWork;
 using NetLine.Infrastructure.Context;
@@ -42,6 +43,7 @@ namespace NetLine.Infrastructure.Context
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProductRe, ProductRe>();
             services.AddScoped<ICartRe, CartRe>();
+            services.AddScoped<ICategoryRe, CategoryRe>();
 
             #endregion
 

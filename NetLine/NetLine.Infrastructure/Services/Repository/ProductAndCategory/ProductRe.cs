@@ -38,7 +38,7 @@ namespace NetLine.Infrastructure.Services.Repository.ProductAndCategory
             var Category = await
                 _context.Products.Where(c => c.Id == ProductId).SelectMany(c => c.CategoryToProducts)
                     .Select(ca => ca.Category).ToListAsync();
-         
+
             //this method for show ProductDetail
             return new DetailViewModel()
             {
@@ -46,16 +46,17 @@ namespace NetLine.Infrastructure.Services.Repository.ProductAndCategory
                 Categories = Category
             };
         }
-     
-        
+
+
         //*************Manege-Product***************//
+
 
         //this method for AddProduct
         public async Task AddProduct(AddEditProdcutViewModel add)
         {
             var item = new Item()
             {
-                Price = add.price,
+                Price = add.Price,
                 QuantityInStock = add.QuantityInStock
             };
             await _context.AddAsync(item);
@@ -80,6 +81,69 @@ namespace NetLine.Infrastructure.Services.Repository.ProductAndCategory
                 }
             }
 
+        }
+
+        //this method for show EditPage
+        public async Task<AddEditProdcutViewModel> EditProduct(int id, AddEditProdcutViewModel add)
+        {
+            var product = await _context.Products.Include(p => p.Item)
+                .Where(p => p.Id == id)
+                .Select(s => new AddEditProdcutViewModel()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Description = s.Description,
+                    QuantityInStock = s.Item.QuantityInStock,
+                    Price = s.Item.Price
+                }).FirstOrDefaultAsync();
+
+            add = product;
+            return add;
+        }
+
+        //this method for apply Edit
+        public async Task ApplyEdit(AddEditProdcutViewModel add)
+        {
+            var product = await _context.Products.FindAsync(add.Id);
+            var item = await _context.Items.FirstAsync(p => p.Id == product.ItemId);
+
+            product.Name = add.Name;
+            product.Description = add.Description;
+            item.Price = add.Price;
+            item.QuantityInStock = add.QuantityInStock;
+
+            await _context.SaveChangesAsync();
+            if (add.UpPicture?.Length > 0)
+            {
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "images",
+                    product.Id + Path.GetExtension(add.UpPicture.FileName));
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    add.UpPicture.CopyTo(stream);
+                }
+            }
+        }
+
+        public async Task DeleteProduct(int id)
+        {
+            var Pr = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = await _context.Products.FindAsync(Pr.Id);
+            var item = await _context.Items.FirstAsync(p => p.Id == product.ItemId);
+            _context.Items.Remove(item);
+            _context.Products.Remove(product);
+
+            await _context.SaveChangesAsync();
+
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(),
+                "wwwroot",
+                "images",
+                product.Id + ".jpg");
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
         }
     }
 }
